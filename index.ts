@@ -1,34 +1,14 @@
-import express, { Request, Response } from "express"
-import { Todo } from "./src/mocks/Todos"
-import TodoInterface from "./src/interface/Todos"
-
-const app = express()
-const PORT = 5000
-
-app.use(express.json()) 
-
-app.get("/todos", (req: Request, res: Response) : Response => {
-  return res.status(200).json({
-    message: "Success",
-    data: Todo
-  })
-})
-
-app.get("/todo/:id", (req: Request, res: Response) : Response => {
-  const id: number = Number(req.params.id)
-
-  const data: TodoInterface | undefined = Todo.find((data) => data.id == id)
-
-  if (data == undefined) return res.status(400).json({ message: "Data not found" })
-
-  return res.status(200).json({
-    message: "Success",
-    data: data
-  })
-})
+import express from "express"
+import router from "./src/routes"
 
 async function Start() : Promise<void> {
   try {
+    const app = express()
+    const PORT = 5000
+
+    app.use(express.json()) 
+    app.use("/api/v1", router)
+
     app.listen(PORT, () => console.log("Server running"))
   } catch (error) {
     console.log(error);
