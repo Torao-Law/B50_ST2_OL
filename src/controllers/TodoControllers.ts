@@ -6,7 +6,7 @@ export default new class TodoControllers {
     TodoServices.find(req, res)
   }
 
-  findOne(req: Request, res: Response) {
-    TodoServices.findOne(req, res)
-  }
+  // findOne(req: Request, res: Response) {
+  //   TodoServices.findOne(req, res)
+  // }
 }
